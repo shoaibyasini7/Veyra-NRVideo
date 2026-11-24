@@ -1,4 +1,5 @@
 name: Windows build (reproducible)
+# Fork build: Veyra 2.2.1 with screen-capture Game mode restored.
 
 # Builds veyra_qml_ui.exe and the virtual camera on a clean GitHub-hosted
 # runner. Every dependency is fetched from its upstream source at a pinned
