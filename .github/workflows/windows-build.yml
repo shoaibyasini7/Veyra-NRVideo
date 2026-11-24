@@ -175,6 +175,9 @@ jobs:
           }
           Copy-Item C:\v\installed\x64-windows\bin\*.dll $stage
           Copy-Item C:\dovi\bin\*.dll $stage
+          $crypto = Get-ChildItem "$env:ProgramFiles\OpenSSL" -Recurse -Filter libcrypto-3-x64.dll | Select-Object -First 1
+          if (-not $crypto) { throw 'libcrypto-3-x64.dll not found (veyra_qml_ui links OpenSSL dynamically)' }
+          Copy-Item $crypto.FullName $stage
           & "$env:QT_ROOT_DIR\bin\windeployqt.exe" --release --qmldir qml --no-translations `
             --skip-plugin-types qmltooling,generic "$stage\veyra_qml_ui.exe"
           if ($LASTEXITCODE -ne 0) { throw "windeployqt failed with exit code $LASTEXITCODE" }
